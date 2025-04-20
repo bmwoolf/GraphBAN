@@ -10,3 +10,22 @@ python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 ```
+
+# Architecture
+## Data Pipeline:
+- Parse SMILES → molecular graph  
+- Parse protein sequence → amino acid embedding  
+- Build CPI bipartite graph  
+- Create train/test splits (in-domain + cross-domain)  
+
+## Model Implementation
+- Compound encoder: GCN + ChemBERTa + Fusion  
+- Protein encoder: CNN + ESM + Fusion  
+- Teacher: GAE (GraphSAGE encoder + linear decoder)  
+- Student: BAN + CDAN + FC layer  
+- Loss: KD loss (MSE + cosine), BCE loss, adversarial domain loss  
+
+## Training Logic
+- Train teacher first (unsupervised GAE)  
+- Train student with KD + BAN + CDAN  
+- Evaluate using AUROC, AUPRC, F1  

@@ -1,5 +1,7 @@
-torch
-dgl
-transformers
-rdkit
+torch>=2.0.0
+dgl>=2.2.0
+transformers>=4.30.0
+rdkit>=2023.3.1
 torchtyping>=0.1.0  # For tensor shape checking
+pytest>=7.0.0  # For testing
+pytest-cov>=4.0.0  # For coverage reports

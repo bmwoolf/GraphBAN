@@ -3,13 +3,15 @@
 # GraphBAN
 A deep learning model for predicting compound-protein interactions using a bilinear attention network with knowledge distillation and domain adaptation. It combines GCNs, pretrained LLMs (ChemBERTa & ESM), and a student-teacher architecture to generalize across unseen compounds and proteins.
 
-Please note, this is TWO neural networks- 
+Please note, this is TWO neural networks:  
 1. Teacher (Graph Autoencoder)
 2. Student (compound + protein encoders → BAN → classifier)
 
 They form a knowledge-distilled dual-network, trained in two stages:
 1. GAE teaches neighborhood structure (unsupervised)
 2. Student learns to predict binding (supervised)
+
+Link to paper summary: https://phys.org/news/2025-04-graphban-drug-discovery-faster-artificial.amp
 
 # Running locally 
 ```bash

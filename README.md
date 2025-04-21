@@ -18,6 +18,15 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
+# Testing
+```
+# Run tests
+pytest
+
+# Run tests with coverage
+pytest --cov=models --cov-report=html
+```
+
 # Architecture
 ## Data Pipeline
 - Parse SMILES → molecular graph  (SMILES = Simplified Molecular Input Line Entry System)

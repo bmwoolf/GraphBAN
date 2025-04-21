@@ -24,6 +24,9 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        # Install DGL from official source
+        pip install dgl -f https://data.dgl.ai/wheels/repo.html
+        # Install other dependencies
         pip install -r requirements.txt
         
     - name: Run tests with pytest

@@ -9,7 +9,10 @@ class ChemBERTaEncoder(nn.Module):
         self.linear = nn.Linear(self.model.config.hidden_size, 128)
 
     def forward(self, smiles_list):
+        device = next(self.parameters()).device  # Get model's device
         encoded = self.tokenizer(smiles_list, return_tensors='pt', padding=True, truncation=True)
+        # Move encoded inputs to same device as model
+        encoded = {k: v.to(device) for k, v in encoded.items()}
         output = self.model(**encoded)
         pooled = output.last_hidden_state[:, 0]  # CLS token
         return self.linear(pooled)

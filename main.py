@@ -5,8 +5,8 @@ from models.cnn_encoder import CNNEncoder
 from models.esm_encoder import ESMEncoder
 from models.feature_fusion import FeatureFusion
 from models.gae_teacher import GAETeacher
-from models.train_teacher import train_teacher
-from models.train_student import train_student
+from train_teacher import train_teacher
+from train_student import train_student
 from data.loaders import get_loader
 from utils.device_utils import get_device, move_to_device
 
@@ -43,6 +43,21 @@ for batched_graph, seqs, labels in data_loader:
     # Encode
     c_struct = compound_gcn(batched_graph, g_feats)
     c_llm = compound_llm(smiles_batch)
+
+    # Debug prints
+    print("c_struct shape:", c_struct.shape)
+    print("c_llm shape:", c_llm.shape)
+    
+    # Reshape if needed
+    if c_struct.dim() == 1:
+        c_struct = c_struct.unsqueeze(0)
+    if c_llm.dim() == 1:
+        c_llm = c_llm.unsqueeze(0)
+        
+    # Make sure both have same first dimension
+    if c_struct.shape[0] != c_llm.shape[0]:
+        c_struct = c_struct.expand(c_llm.shape[0], -1)
+        
     compound_repr = fuser(c_struct, c_llm)
 
     p_seq = protein_cnn(seqs)

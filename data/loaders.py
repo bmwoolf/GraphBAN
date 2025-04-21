@@ -1,4 +1,5 @@
 import torch
+import dgl
 from torch.utils.data import Dataset, DataLoader
 from data.preprocess import smiles_to_graph, protein_to_tensor
 

@@ -2,10 +2,11 @@ import torch
 
 def get_device():
     """Get the best available device for PyTorch computations."""
-    if torch.backends.mps.is_available():
-        return torch.device("mps")
-    elif torch.cuda.is_available():
+    if torch.cuda.is_available():
         return torch.device("cuda")
+    # For Apple Silicon, use CPU instead of MPS since DGL doesn't support MPS
+    # if torch.backends.mps.is_available():
+    #     return torch.device("mps")
     return torch.device("cpu")
 
 def move_to_device(model, device=None):

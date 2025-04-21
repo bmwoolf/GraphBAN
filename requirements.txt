@@ -2,3 +2,4 @@ torch
 dgl
 transformers
 rdkit
+torchtyping>=0.1.0  # For tensor shape checking

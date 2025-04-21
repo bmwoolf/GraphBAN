@@ -1,3 +1,4 @@
+import torch.nn as nn
 from transformers import AutoModel, AutoTokenizer
 
 class ChemBERTaEncoder(nn.Module):

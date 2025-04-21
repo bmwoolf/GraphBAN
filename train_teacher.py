@@ -1,9 +1,12 @@
 import torch
 import torch.nn.functional as F
 from models.gae_teacher import GAETeacher
+from utils.device_utils import move_to_device
 
 def train_teacher(g, node_feats, epochs=250):
-    model = GAETeacher()
+    device = g.device
+    model = move_to_device(GAETeacher(), device)
+    node_feats = node_feats.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
     for epoch in range(epochs):
